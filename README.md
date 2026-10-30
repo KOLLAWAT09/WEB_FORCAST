@@ -1,5 +1,7 @@
 # Asset forecasting notebooks
 
+**Live website:** https://kollawat09.github.io/WEB_FORCAST/ ([dashboard](https://kollawat09.github.io/WEB_FORCAST/dashboard.html)) — daily forecasts from all 25 models. Source in [Web_deploy/](Web_deploy/).
+
 This project contains 25 forecasting notebooks: ARIMA, SVR, XGBoost, LSTM and Transformer for BTC, S&P 500, USD/EUR, WTI and gold (XAU).
 
 ## Browse the results
