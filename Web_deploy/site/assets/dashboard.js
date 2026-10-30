@@ -30,7 +30,19 @@ function segButtons(container, items, current, onPick) {
     type: 'button', 'aria-pressed': String(value === current), onclick: () => onPick(value),
   }, label)));
 }
+function clearSelection() {
+  state.asset = null;
+  state.models.clear();
+  state.h = null;
+  D = null;
+  const status = document.getElementById('status');
+  status.hidden = true;
+  renderAll();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function renderControls() {
+  document.getElementById('clearBtn').disabled = !(state.asset || state.models.size || state.h);
   segButtons(document.getElementById('assetSeg'),
     ASSET_ORDER.map((k) => [k, cache[k]?.pair ?? { BTC: 'BTC/USD', SNP: 'S&P 500', USD: 'USD/EUR', WTI: 'WTI/USD', XAU: 'XAU/USD' }[k]]),
     state.asset, (v) => { state.asset = v; load(); });
@@ -321,6 +333,7 @@ async function load() {
 }
 
 readHash();
+document.getElementById('clearBtn').addEventListener('click', clearSelection);
 initChrome(renderAll);
 window.addEventListener('resize', () => Object.values(charts).forEach((c) => c.resize()));
 load();

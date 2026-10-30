@@ -223,3 +223,13 @@ footer { border-top: 1px solid var(--border); padding: 22px 0 40px; color: var(-
 .gate li .box { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(--axis); display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
 .gate li.done { color: var(--ink); }
 .gate li.done .box { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+
+/* dashboard: clear-selection button, pinned to the end of the filter row */
+.clear-group { margin-left: auto; justify-content: flex-end; }
+.btn-clear { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--ink-2); cursor: pointer;
+  transition: background .15s ease, color .15s ease, border-color .15s ease; }
+.btn-clear svg { width: 14px; height: 14px; }
+.btn-clear:hover:not(:disabled) { color: var(--down); border-color: color-mix(in srgb, var(--down) 45%, var(--border)); background: var(--surface-2); }
+.btn-clear:disabled { opacity: .45; cursor: not-allowed; }
+@media (max-width: 640px) { .clear-group { margin-left: 0; } }
