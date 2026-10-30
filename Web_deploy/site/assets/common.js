@@ -6,7 +6,7 @@ const MODEL_LABEL = { ARIMA: 'ARIMA', SVR: 'SVR', XGBOOST: 'XGBoost', LSTM: 'LST
 const I18N = {
   th: {
     nav_guide: 'วิธีใช้งาน', nav_dash: 'แดชบอร์ด', lang: 'EN', theme: 'ธีม',
-    hero_title: 'พยากรณ์ราคา 5 สินทรัพย์ ด้วย 5 โมเดล อัปเดตทุกวัน',
+    hero_title: 'พยากรณ์ราคา 5 สินทรัพย์ ด้วย 5 โมเดล',
     hero_lead: 'ดูราคาตลาดล่าสุด ราคาที่โมเดลคำนวณล่วงหน้า 1–30 วัน และความแม่นยำที่วัดจากข้อมูลจริง เลือกสินทรัพย์ เลือกโมเดล และเปรียบเทียบได้ในหน้าเดียว',
     enter: 'เข้าสู่แดชบอร์ด', read_guide: 'อ่านวิธีใช้งาน',
     latest_prices: 'ราคาล่าสุด', updated: 'อัปเดต', data_through: 'ข้อมูลถึงวันที่',
@@ -50,7 +50,7 @@ const I18N = {
   },
   en: {
     nav_guide: 'Guide', nav_dash: 'Dashboard', lang: 'ไทย', theme: 'Theme',
-    hero_title: '5 assets, 5 forecasting models, updated daily',
+    hero_title: '5 assets, 5 forecasting models',
     hero_lead: 'See the latest market price, model forecasts 1–30 days ahead, and accuracy measured on real out-of-sample data. Pick an asset, pick models, and compare them on one page.',
     enter: 'Open dashboard', read_guide: 'Read the guide',
     latest_prices: 'Latest prices', updated: 'Updated', data_through: 'Data through',
