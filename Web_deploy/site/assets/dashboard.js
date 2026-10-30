@@ -253,13 +253,12 @@ function renderMetricTable() {
   const b = { mape: best('mape', -1), rmse: best('rmse', -1), da: best('da', 1) };
   const cell = (v, key, fmt) => el('td', {}, fmt(v), v != null && v === b[key] ? el('span', { class: 'best' }, t('best')) : null);
   table.replaceChildren(
-    el('thead', {}, el('tr', {}, ...[t('model'), 'MAPE', 'RMSE', t('direction'), t('n_tests')].map((h) => el('th', {}, h)))),
+    el('thead', {}, el('tr', {}, ...[t('model'), 'MAPE', 'RMSE', t('direction')].map((h) => el('th', {}, h)))),
     el('tbody', {}, ...rows.map(({ m, x }) => el('tr', {},
       el('td', {}, el('span', { class: 'mname', style: `--dot:var(--m-${m})` }, el('i'), MODEL_LABEL[m])),
       cell(x?.mape, 'mape', (v) => fmtPct(v, 2, false)),
       cell(x?.rmse, 'rmse', fmtP),
-      cell(x?.da, 'da', (v) => (v == null ? '—' : fmtPct(v, 1, false))),
-      el('td', {}, x?.n ?? '—')))));
+      cell(x?.da, 'da', (v) => (v == null ? '—' : fmtPct(v, 1, false)))))));
 }
 function renderFutureTable() {
   const ms = selected(), table = document.getElementById('futureTable');
