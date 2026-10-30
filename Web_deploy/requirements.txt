@@ -1,0 +1,10 @@
+# PyTorch is also required (LSTM, PatchTST). CI installs the CPU build:
+#   pip install --index-url https://download.pytorch.org/whl/cpu torch
+numpy
+pandas
+scipy
+scikit-learn
+statsmodels
+xgboost
+joblib
+yfinance

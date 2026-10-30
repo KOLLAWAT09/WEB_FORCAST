@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Asset Forecast Lab</title>
+  <meta name="description" content="พยากรณ์ราคา BTC, S&P 500, USD/EUR, WTI และทองคำ ด้วย ARIMA, SVR, XGBoost, LSTM และ Transformer อัปเดตทุกวัน">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232a78d6'/%3E%3Cpath d='M7 21l6-6 4 4 8-9' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16l5-5 3 3 7-7"/></svg></span>
+        Asset Forecast Lab
+      </a>
+      <nav class="nav">
+        <a href="index.html" aria-current="page" data-i18n="nav_guide"></a>
+        <a href="dashboard.html" data-i18n="nav_dash"></a>
+      </nav>
+      <span class="spacer"></span>
+      <button class="icon-btn" id="themeBtn" aria-label="Toggle theme">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="icon-btn" id="langBtn" data-i18n="lang"></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="wrap hero">
+      <div>
+        <h1 data-i18n="hero_title"></h1>
+        <p class="lead" data-i18n="hero_lead"></p>
+        <div class="cta">
+          <a class="btn btn-primary" href="dashboard.html"><span data-i18n="enter"></span> →</a>
+          <a class="btn btn-ghost" href="#how" data-i18n="read_guide"></a>
+        </div>
+      </div>
+      <div class="card hero-card">
+        <div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:10px">
+          <strong data-i18n="latest_prices"></strong>
+          <span class="muted" style="font-size:13px" id="updated"></span>
+        </div>
+        <div id="assetCards" class="grid5" style="grid-template-columns:1fr 1fr"></div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="wrap">
+        <h2 data-i18n="how_title"></h2>
+        <p class="sub" data-i18n="how_sub"></p>
+        <div class="steps">
+          <div class="card step"><div class="n">1</div><h3 data-i18n="s1_t"></h3><p data-i18n="s1_p"></p></div>
+          <div class="card step"><div class="n">2</div><h3 data-i18n="s2_t"></h3><p data-i18n="s2_p"></p></div>
+          <div class="card step"><div class="n">3</div><h3 data-i18n="s3_t"></h3><p data-i18n="s3_p"></p></div>
+          <div class="card step"><div class="n">4</div><h3 data-i18n="s4_t"></h3><p data-i18n="s4_p"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 data-i18n="models_title"></h2>
+        <p class="sub" data-i18n="models_sub"></p>
+        <div class="grid5" id="modelCards"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 data-i18n="gloss_title"></h2>
+        <div class="glossary" style="margin-top:16px">
+          <div class="card"><b data-i18n="g_mape"></b><p data-i18n="g_mape_p"></p></div>
+          <div class="card"><b data-i18n="g_rmse"></b><p data-i18n="g_rmse_p"></p></div>
+          <div class="card"><b data-i18n="g_da"></b><p data-i18n="g_da_p"></p></div>
+          <div class="card"><b data-i18n="g_band"></b><p data-i18n="g_band_p"></p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <h2 data-i18n="data_title"></h2>
+        <p class="ink2" data-i18n="data_p" style="max-width:820px"></p>
+        <div class="note" style="margin-top:16px"><strong data-i18n="disclaimer_t"></strong> — <span data-i18n="disclaimer"></span></div>
+        <p style="margin-top:24px"><a class="btn btn-primary" href="dashboard.html"><span data-i18n="enter"></span> →</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap"><span data-i18n="source"></span> · ARIMA · SVR · XGBoost · LSTM · PatchTST</div></footer>
+
+  <script src="assets/common.js"></script>
+  <script src="assets/home.js"></script>
+</body>
+</html>
