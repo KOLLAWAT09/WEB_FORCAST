@@ -6,7 +6,7 @@ const MODEL_LABEL = { ARIMA: 'ARIMA', SVR: 'SVR', XGBOOST: 'XGBoost', LSTM: 'LST
 const I18N = {
   th: {
     nav_guide: 'วิธีใช้งาน', nav_dash: 'แดชบอร์ด', lang: 'EN', theme: 'ธีม',
-    hero_title: 'พยากรณ์ราคา 5 สินทรัพย์ ด้วย 5 โมเดล',
+    hero_title: 'พยากรณ์ราคา 5 สินทรัพย์\nด้วย 5 โมเดล',
     hero_lead: 'ดูราคาตลาดล่าสุด ราคาที่โมเดลคำนวณล่วงหน้า 1–30 วัน และความแม่นยำที่วัดจากข้อมูลจริง เลือกสินทรัพย์ เลือกโมเดล และเปรียบเทียบได้ในหน้าเดียว',
     enter: 'เข้าสู่แดชบอร์ด', read_guide: 'อ่านวิธีใช้งาน',
     latest_prices: 'ราคาล่าสุด', updated: 'อัปเดต', data_through: 'ข้อมูลถึงวันที่',
@@ -43,6 +43,8 @@ const I18N = {
     future_table: 'ตารางราคาพยากรณ์ 30 วันข้างหน้า', date: 'วันที่',
     model_info: 'รายละเอียดโมเดล', train_period: 'ช่วงข้อมูล train', trained_at: 'train ล่าสุด', spec: 'ค่าที่เลือก',
     lookback: 'ใช้ข้อมูลย้อนหลัง', obs: 'วัน',
+    gate_title: 'เลือกข้อมูลที่ต้องการดู', gate_sub: 'เลือกให้ครบ 3 ข้อด้านบน แล้วผลพยากรณ์จะแสดงที่นี่',
+    need_asset: 'เลือกสินทรัพย์', need_models: 'เลือกโมเดลอย่างน้อย 1 ตัว', need_h: 'เลือกระยะพยากรณ์',
     pick_model: 'เลือกอย่างน้อย 1 โมเดลเพื่อดูผลพยากรณ์', loading: 'กำลังโหลดข้อมูล…',
     load_fail: 'โหลดข้อมูลไม่สำเร็จ ลองรีเฟรชหน้าเว็บ', no_band: 'ช่วง 95% แสดงเมื่อเลือกโมเดลเดียว',
     source: 'แหล่งข้อมูล: Yahoo Finance', range_all: 'ทั้งหมด', unit: 'หน่วย',
@@ -50,7 +52,7 @@ const I18N = {
   },
   en: {
     nav_guide: 'Guide', nav_dash: 'Dashboard', lang: 'ไทย', theme: 'Theme',
-    hero_title: '5 assets, 5 forecasting models',
+    hero_title: '5 assets,\n5 forecasting models',
     hero_lead: 'See the latest market price, model forecasts 1–30 days ahead, and accuracy measured on real out-of-sample data. Pick an asset, pick models, and compare them on one page.',
     enter: 'Open dashboard', read_guide: 'Read the guide',
     latest_prices: 'Latest prices', updated: 'Updated', data_through: 'Data through',
@@ -87,6 +89,8 @@ const I18N = {
     future_table: 'Forecast table, next 30 steps', date: 'Date',
     model_info: 'Model details', train_period: 'Training data', trained_at: 'Last trained', spec: 'Selected spec',
     lookback: 'Lookback', obs: 'steps',
+    gate_title: 'Choose what to view', gate_sub: 'Make all 3 selections above and the forecast will appear here',
+    need_asset: 'Pick an asset', need_models: 'Pick at least one model', need_h: 'Pick a horizon',
     pick_model: 'Select at least one model to see forecasts', loading: 'Loading data…',
     load_fail: 'Could not load data. Try refreshing.', no_band: 'The 95% range shows when one model is selected',
     source: 'Source: Yahoo Finance', range_all: 'All', unit: 'Unit',

@@ -1,7 +1,8 @@
 const HORIZONS = [1, 3, 5, 7, 14, 21, 30];
 const RANGES = [['1M', 22], ['3M', 66], ['6M', 130], ['1Y', 260], ['ALL', Infinity]];
 
-const state = { asset: 'BTC', models: new Set(['ARIMA', 'LSTM']), h: 1, range: '6M', type: 'candle' };
+// Nothing is preselected: results appear once the user picks an asset, models and a horizon.
+const state = { asset: null, models: new Set(), h: null, range: '6M', type: 'candle' };
 const cache = {};
 let D = null;
 const charts = {};
@@ -10,14 +11,18 @@ const charts = {};
 function readHash() {
   const p = new URLSearchParams(location.hash.slice(1));
   if (ASSET_ORDER.includes(p.get('asset'))) state.asset = p.get('asset');
-  if (p.has('models')) state.models = new Set(p.get('models').split(',').filter((m) => MODELS.includes(m)));
+  if (p.get('models')) state.models = new Set(p.get('models').split(',').filter((m) => MODELS.includes(m)));
   const h = Number(p.get('h'));
   if (HORIZONS.includes(h)) state.h = h;
 }
 function writeHash() {
-  const p = new URLSearchParams({ asset: state.asset, models: [...state.models].join(','), h: state.h });
-  history.replaceState(null, '', `#${p}`);
+  const p = new URLSearchParams();
+  if (state.asset) p.set('asset', state.asset);
+  if (state.models.size) p.set('models', MODELS.filter((m) => state.models.has(m)).join(','));
+  if (state.h) p.set('h', state.h);
+  history.replaceState(null, '', p.toString() ? `#${p}` : location.pathname + location.search);
 }
+const ready = () => Boolean(state.asset && D && state.models.size && state.h);
 
 // ---------- controls
 function segButtons(container, items, current, onPick) {
@@ -233,14 +238,14 @@ function renderMetricTable() {
     const vals = rows.map((r) => r.x?.[key]).filter((v) => v != null);
     return vals.length > 1 ? (dir < 0 ? Math.min(...vals) : Math.max(...vals)) : null;
   };
-  const b = { mape: best('mape', -1), rmse: best('rmse', -1), mae: best('mae', -1), da: best('da', 1) };
+  const b = { mape: best('mape', -1), rmse: best('rmse', -1), da: best('da', 1) };
   const cell = (v, key, fmt) => el('td', {}, fmt(v), v != null && v === b[key] ? el('span', { class: 'best' }, t('best')) : null);
   table.replaceChildren(
-    el('thead', {}, el('tr', {}, ...[t('model'), 'MAPE', 'RMSE', 'MAE', t('direction'), t('n_tests')].map((h) => el('th', {}, h)))),
+    el('thead', {}, el('tr', {}, ...[t('model'), 'MAPE', 'RMSE', t('direction'), t('n_tests')].map((h) => el('th', {}, h)))),
     el('tbody', {}, ...rows.map(({ m, x }) => el('tr', {},
       el('td', {}, el('span', { class: 'mname', style: `--dot:var(--m-${m})` }, el('i'), MODEL_LABEL[m])),
       cell(x?.mape, 'mape', (v) => fmtPct(v, 2, false)),
-      cell(x?.rmse, 'rmse', fmtP), cell(x?.mae, 'mae', fmtP),
+      cell(x?.rmse, 'rmse', fmtP),
       cell(x?.da, 'da', (v) => (v == null ? '—' : fmtPct(v, 1, false))),
       el('td', {}, x?.n ?? '—')))));
 }
@@ -275,33 +280,47 @@ function renderInfo() {
     el('span', {}, `h: ${stepWord()}`));
 }
 
+function renderGate() {
+  const done = { needAsset: Boolean(state.asset), needModels: state.models.size > 0, needH: Boolean(state.h) };
+  for (const [id, ok] of Object.entries(done)) {
+    const li = document.getElementById(id);
+    li.classList.toggle('done', ok);
+    li.querySelector('.box').textContent = ok ? '✓' : String(Object.keys(done).indexOf(id) + 1);
+  }
+  const loading = !document.getElementById('status').hidden;
+  document.getElementById('gate').hidden = ready() || loading;
+  document.getElementById('content').hidden = !ready();
+}
+
 function renderAll() {
   writeHash();
   renderControls();
-  if (!D) return;
+  renderGate();
+  if (!ready()) return;
   renderTiles(); renderMarket(); renderPrediction(); renderErrors();
   renderMetricTable(); renderFutureTable(); renderInfo();
+  Object.values(charts).forEach((c) => c.resize());
 }
 
 async function load() {
-  const status = document.getElementById('status'), content = document.getElementById('content');
-  renderControls();
+  const status = document.getElementById('status');
+  D = state.asset ? cache[state.asset] ?? null : null;
+  if (!state.asset || D) { renderAll(); return; }
+  const asset = state.asset;
+  status.hidden = false; status.textContent = t('loading');
+  renderAll();
   try {
-    if (!cache[state.asset]) {
-      status.hidden = false; status.textContent = t('loading');
-      cache[state.asset] = await getJSON(`data/${state.asset}.json`);
-    }
-    D = cache[state.asset];
-    status.hidden = true; content.hidden = false;
-    renderAll();
-    Object.values(charts).forEach((c) => c.resize());
+    cache[asset] = await getJSON(`data/${asset}.json`);
+    status.hidden = true;
+    if (state.asset === asset) { D = cache[asset]; renderAll(); }
   } catch (e) {
     console.error(e);
-    status.hidden = false; status.textContent = t('load_fail');
+    status.textContent = t('load_fail');
+    renderAll();
   }
 }
 
 readHash();
-initChrome(() => { if (D) renderAll(); else renderControls(); });
+initChrome(renderAll);
 window.addEventListener('resize', () => Object.values(charts).forEach((c) => c.resize()));
 load();

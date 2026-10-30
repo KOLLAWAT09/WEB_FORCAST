@@ -36,7 +36,17 @@
       <div class="fgroup"><span class="flabel" data-i18n="f_h"></span><div class="seg" id="hSeg" role="group"></div></div>
     </div>
 
-    <div id="status" class="empty" data-i18n="loading"></div>
+    <section class="card gate" id="gate" hidden>
+      <h2 data-i18n="gate_title"></h2>
+      <p data-i18n="gate_sub"></p>
+      <ul>
+        <li id="needAsset"><span class="box">1</span><span data-i18n="need_asset"></span></li>
+        <li id="needModels"><span class="box">2</span><span data-i18n="need_models"></span></li>
+        <li id="needH"><span class="box">3</span><span data-i18n="need_h"></span></li>
+      </ul>
+    </section>
+
+    <div id="status" class="empty" hidden></div>
 
     <div class="stack" id="content" hidden>
       <div class="tiles" id="tiles"></div>

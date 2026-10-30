@@ -21,7 +21,7 @@ function sparkline(values, color) {
 function renderHome() {
   const cards = document.getElementById('assetCards');
   const models = document.getElementById('modelCards');
-  models.replaceChildren(...MODELS.map((m) => el('div', { class: 'card mcard', style: `--dot:var(--m-${m})` },
+  models.replaceChildren(...MODELS.map((m, i) => el('div', { class: 'card mcard reveal-item', style: `--dot:var(--m-${m});--i:${i + 2}` },
     el('h3', {}, el('i'), MODEL_LABEL[m]), el('p', {}, t(`m_${m}`)))));
   if (!INDEX) return;
   document.getElementById('updated').textContent = `${t('data_through')} ${fmtDate(Object.values(INDEX.assets)[0]?.last_date)}`;
@@ -36,6 +36,19 @@ function renderHome() {
   }));
 }
 
+// Fade sections in as they scroll into view; content stays visible if the observer is unavailable.
+function initReveal() {
+  if (!('IntersectionObserver' in window)) return;
+  document.documentElement.classList.add('js-reveal');
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.section').forEach((s) => io.observe(s));
+}
+
+initReveal();
 initChrome(renderHome);
 renderHome();
 getJSON('data/index.json').then((d) => { INDEX = d; renderHome(); })
